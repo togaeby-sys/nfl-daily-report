@@ -1,0 +1,107 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="build" content="202610102334"><title>NFL 5주차 순위</title><style>
+:root{--bg:#f4f2ee;--card:#fff;--ink:#16181d;--sub:#646a75;--line:#e4e1da;--fav:#e31837;--gold:#ffb612;--win:#16181d;--lose:#9aa0aa}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1114;--card:#191c21;--ink:#f1f2f4;--sub:#9299a5;--line:#2a2e36;--win:#fff;--lose:#6d7480}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 48px}
+.mast{padding:28px 0 18px;border-bottom:3px solid var(--ink);margin-bottom:20px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--fav)}
+.mast h1{font-size:34px;font-weight:900;letter-spacing:-.03em;line-height:1.15;margin:4px 0 6px}
+.mast p{font-size:13px;color:var(--sub)}
+h2{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--sub);margin:34px 0 12px;display:flex;align-items:center;gap:10px}
+h2:after{content:"";flex:1;height:1px;background:var(--line)}
+.fav{background:linear-gradient(135deg,#e31837 0%,#a80f26 100%);color:#fff;border-radius:18px;padding:20px;position:relative;overflow:hidden}
+.fav:before{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,182,18,.16)}
+.fav-head{display:flex;align-items:center;gap:14px;position:relative}
+.fav-head img{width:68px;height:68px}
+.fav-name{font-size:13px;font-weight:700;opacity:.85}
+.fav-rec{font-size:34px;font-weight:900;line-height:1.1;letter-spacing:-.02em}
+.fav-rec small{font-size:14px;font-weight:700;color:var(--gold);margin-left:8px;letter-spacing:0}
+.badge{display:inline-block;background:var(--gold);color:#3a2a00;font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;margin-top:12px}
+.fav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;position:relative}
+.fav-box{background:rgba(0,0,0,.2);border-radius:12px;padding:12px}
+.fav-box b{display:block;font-size:11px;letter-spacing:.1em;color:var(--gold);margin-bottom:4px}
+.fav-box span{display:block;font-size:17px;font-weight:800}
+.fav-box em{display:block;font-style:normal;font-size:12px;opacity:.85;margin-top:2px}
+.fav-news{margin-top:14px;position:relative}
+.fav-news a{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(255,255,255,.18)}
+.fav-news img{width:84px;height:56px;object-fit:cover;border-radius:8px;flex:none}
+.fav-news strong{font-size:15px;line-height:1.35;display:block}
+.fav-news p{font-size:13px;opacity:.85;line-height:1.45;margin-top:2px}
+.game{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border:1px solid var(--line)}
+.game.is-fav{border:2px solid var(--gold)}
+.team{display:flex;align-items:center;gap:10px;padding:5px 0;color:var(--lose)}
+.team.w{color:var(--win)}
+.team img{width:34px;height:34px}
+.team .nm{font-size:17px;font-weight:800;flex:1}
+.team .nm small{font-size:12px;font-weight:500;color:var(--sub);margin-left:6px}
+.team .sc{font-size:26px;font-weight:900;font-variant-numeric:tabular-nums}
+.leaders{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.ld{text-align:center;min-width:0}
+.ld img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top;background:var(--bg);margin:0 auto 6px}
+.ld b{display:block;font-size:10px;letter-spacing:.1em;color:var(--fav)}
+.ld span{display:block;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld em{display:block;font-style:normal;font-size:11px;color:var(--sub);line-height:1.35}
+.recap{font-size:14px;color:var(--sub);margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.up{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 16px}
+.up-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.up-row:last-child{border:0}
+.up-row time{width:104px;flex:none;color:var(--sub);font-size:12px;font-variant-numeric:tabular-nums}
+.up-row img{width:22px;height:22px}
+.up-row b{font-weight:800}
+.up-row i{font-style:normal;color:var(--sub);font-size:12px}
+.lead{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.lead img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.lead div{padding:16px}
+.lead strong{font-size:22px;font-weight:900;line-height:1.3;letter-spacing:-.02em;display:block}
+.item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.item img{width:112px;height:76px;object-fit:cover;border-radius:10px;flex:none}
+.item strong{font-size:16px;font-weight:800;line-height:1.35;display:block}
+.sum{font-size:14px;color:var(--sub);margin-top:6px}
+.en{font-size:11px;color:var(--sub);opacity:.75;margin-top:6px;line-height:1.35}
+.item>div,.fav-news a>div,.lead>div{min-width:0;flex:1}
+body{overflow-wrap:anywhere;word-break:keep-all}
+.nav{display:flex;gap:6px;position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:6px}
+.nav a{flex:1;text-align:center;font-size:14px;font-weight:800;padding:9px 0;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--sub)}
+.nav a.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.conf{font-size:22px;font-weight:900;margin:28px 0 4px;letter-spacing:-.02em}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl caption{text-align:left;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--sub);padding:14px 2px 8px}
+.tbl th{font-size:11px;font-weight:700;color:var(--sub);padding:8px 4px;text-align:right;border-bottom:1px solid var(--line)}
+.tbl td{padding:9px 4px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th:first-child,.tbl td:first-child{text-align:left;padding-left:12px}
+.tbl th:last-child,.tbl td:last-child{padding-right:12px}
+.tbl .tm{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px}
+.tbl .tm img{width:24px;height:24px}
+.tbl .tm i{font-style:normal;font-size:10px;font-weight:800;color:var(--sub);width:14px}
+.tbl tr.me td{background:rgba(255,182,18,.16)}
+.tbl .pos{color:#1a9f53}.tbl .neg{color:#d6453d}
+.note{font-size:12px;color:var(--sub);margin-top:8px}
+.more{display:flex;gap:8px;margin-top:12px}
+.more a{flex:1;text-align:center;font-size:14px;font-weight:800;padding:12px 0;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;min-width:0}
+.pc img{width:54px;height:54px;border-radius:50%;object-fit:cover;object-position:top;background:var(--bg);flex:none}
+.pc div{min-width:0}
+.pc b{display:block;font-size:10px;letter-spacing:.1em;color:var(--fav)}
+.pc span{display:block;font-size:14px;font-weight:800;line-height:1.25}
+.pc em{display:block;font-style:normal;font-size:11px;color:var(--sub);line-height:1.35;margin-top:2px}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 14px;margin-bottom:12px}
+.cat h3{font-size:13px;font-weight:800;color:var(--fav);padding:8px 0 2px;letter-spacing:.04em}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row .rk{width:14px;font-size:12px;font-weight:800;color:var(--sub);text-align:center}
+.row img{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:top;background:var(--bg);flex:none}
+.row .who{flex:1;min-width:0;font-size:14px;font-weight:800;line-height:1.25}
+.row .who small{display:block;font-size:11px;font-weight:500;color:var(--sub)}
+.row .val{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;text-align:right}
+.row.top .val{font-size:20px}
+.row .val{white-space:nowrap}
+.row.top img{width:48px;height:48px}
+.row.me .who{color:var(--fav)}
+.empty{color:var(--sub);font-size:14px;padding:8px 0}
+footer{margin-top:36px;font-size:11px;color:var(--sub);line-height:1.6}
+</style></head><body><div class="wrap"><header class="mast"><div class="kicker">NFL DAILY REPORT</div><h1>5주차 순위</h1><p>2026.10.10(토) 23:34 업데이트 · 시각은 모두 한국시간</p></header><nav class="nav"><a href="index.html?v=202610102334">리포트</a><a href="standings.html?v=202610102334" class="on">순위</a><a href="players.html?v=202610102334">선수</a></nav><div class="conf">AFC</div><table class="tbl"><caption>AFC East</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>3</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Bills</span></td><td><b>3-1</b></td><td>.750</td><td>127-107</td><td class="pos">+20</td><td>1연패</td></tr><tr><td><span class="tm"><i>7</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Patriots</span></td><td><b>2-2</b></td><td>.500</td><td>65-77</td><td class="neg">-12</td><td>1연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Jets</span></td><td><b>1-3</b></td><td>.250</td><td>76-84</td><td class="neg">-8</td><td>3연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Dolphins</span></td><td><b>0-4</b></td><td>.000</td><td>46-101</td><td class="neg">-55</td><td>4연패</td></tr></table><table class="tbl"><caption>AFC North</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>4</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Browns</span></td><td><b>3-1</b></td><td>.750</td><td>81-95</td><td class="neg">-14</td><td>3연승</td></tr><tr><td><span class="tm"><i>5</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Ravens</span></td><td><b>3-1</b></td><td>.750</td><td>116-96</td><td class="pos">+20</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Steelers</span></td><td><b>2-2</b></td><td>.500</td><td>77-87</td><td class="neg">-10</td><td>1연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Bengals</span></td><td><b>2-2</b></td><td>.500</td><td>97-85</td><td class="pos">+12</td><td>2연패</td></tr></table><table class="tbl"><caption>AFC South</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>2</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Jaguars</span></td><td><b>3-1</b></td><td>.750</td><td>104-53</td><td class="pos">+51</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Colts</span></td><td><b>2-2</b></td><td>.500</td><td>102-104</td><td class="neg">-2</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Titans</span></td><td><b>0-4</b></td><td>.000</td><td>55-83</td><td class="neg">-28</td><td>4연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Texans</span></td><td><b>0-4</b></td><td>.000</td><td>84-109</td><td class="neg">-25</td><td>4연패</td></tr></table><table class="tbl"><caption>AFC West</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr class="me"><td><span class="tm"><i>1</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Chiefs</span></td><td><b>4-0</b></td><td>1.000</td><td>118-77</td><td class="pos">+41</td><td>4연승</td></tr><tr><td><span class="tm"><i>6</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Raiders</span></td><td><b>3-1</b></td><td>.750</td><td>115-84</td><td class="pos">+31</td><td>1연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Broncos</span></td><td><b>2-2</b></td><td>.500</td><td>74-94</td><td class="neg">-20</td><td>1연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Chargers</span></td><td><b>0-4</b></td><td>.000</td><td>67-106</td><td class="neg">-39</td><td>4연패</td></tr></table><div class="conf">NFC</div><table class="tbl"><caption>NFC East</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>3</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Giants</span></td><td><b>3-1</b></td><td>.750</td><td>82-79</td><td class="pos">+3</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Eagles</span></td><td><b>2-2</b></td><td>.500</td><td>75-93</td><td class="neg">-18</td><td>2연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Cowboys</span></td><td><b>2-3</b></td><td>.400</td><td>138-136</td><td class="pos">+2</td><td>1연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Commanders</span></td><td><b>1-3</b></td><td>.250</td><td>88-122</td><td class="neg">-34</td><td>1연패</td></tr></table><table class="tbl"><caption>NFC North</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>1</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Vikings</span></td><td><b>4-0</b></td><td>1.000</td><td>86-51</td><td class="pos">+35</td><td>4연승</td></tr><tr><td><span class="tm"><i>5</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Bears</span></td><td><b>3-1</b></td><td>.750</td><td>112-65</td><td class="pos">+47</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Lions</span></td><td><b>2-2</b></td><td>.500</td><td>119-127</td><td class="neg">-8</td><td>1연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Packers</span></td><td><b>2-2</b></td><td>.500</td><td>73-105</td><td class="neg">-32</td><td>1연승</td></tr></table><table class="tbl"><caption>NFC South</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>4</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/car.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Panthers</span></td><td><b>2-2</b></td><td>.500</td><td>121-109</td><td class="pos">+12</td><td>1연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Falcons</span></td><td><b>2-2</b></td><td>.500</td><td>96-92</td><td class="pos">+4</td><td>2연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Saints</span></td><td><b>1-3</b></td><td>.250</td><td>105-128</td><td class="neg">-23</td><td>2연패</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Buccaneers</span></td><td><b>1-4</b></td><td>.200</td><td>100-112</td><td class="neg">-12</td><td>1연승</td></tr></table><table class="tbl"><caption>NFC West</caption><tr><th>팀</th><th>전적</th><th>승률</th><th>득-실</th><th>득실차</th><th>흐름</th></tr><tr><td><span class="tm"><i>2</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">49ers</span></td><td><b>4-0</b></td><td>1.000</td><td>122-64</td><td class="pos">+58</td><td>4연승</td></tr><tr><td><span class="tm"><i>6</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Seahawks</span></td><td><b>3-1</b></td><td>.750</td><td>105-73</td><td class="pos">+32</td><td>1연승</td></tr><tr><td><span class="tm"><i>7</i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Rams</span></td><td><b>2-2</b></td><td>.500</td><td>85-83</td><td class="pos">+2</td><td>1연승</td></tr><tr><td><span class="tm"><i></i><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">Cardinals</span></td><td><b>1-3</b></td><td>.250</td><td>87-117</td><td class="neg">-30</td><td>3연패</td></tr></table><p class="note">팀 이름 앞 숫자는 컨퍼런스 플레이오프 시드(1~7위 진출권)입니다. 득-실은 총 득점-총 실점.</p><footer>데이터·사진: ESPN · 한국어 요약은 AI가 자동 생성해 오역이 있을 수 있습니다. 기록과 점수는 원본 수치 그대로입니다.</footer></div></body></html>
