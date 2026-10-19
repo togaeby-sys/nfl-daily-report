@@ -10,6 +10,12 @@ on:
         description: "새 소식이 없어도 카톡 전송"
         type: boolean
         default: false
+      add_name:
+        description: "수신자 추가: 이름 (예: chulsoo)"
+        required: false
+      add_url:
+        description: "수신자 추가: 그 사람이 보내준 http://localhost:8080/oauth?code=... 주소"
+        required: false
 
 permissions:
   contents: write  # state 브랜치에 상태 저장
@@ -30,6 +36,7 @@ jobs:
       STATE_FILE: ${{ github.workspace }}/.state/state.json
       SITE_DIR: ${{ github.workspace }}/site
       KAKAO_TOKEN_FILE: /tmp/kakao_tokens.json
+      KAKAO_REDIRECT_URI: http://localhost:8080/oauth
       SUMMARIZER: api
       API_MODEL: claude-haiku-5-5
       PAGE_URL: https://togaeby-sys.github.io/nfl-daily-report
@@ -60,6 +67,14 @@ jobs:
           else
             printf '%s' "$BOOT" > "$KAKAO_TOKEN_FILE"
           fi
+
+      # 인가 코드는 1회용이고 클라이언트 시크릿 없이는 교환할 수 없어 실행 기록에 남아도 재사용할 수 없다
+      - name: Add recipient
+        if: ${{ inputs.add_url != '' && inputs.add_name != '' }}
+        env:
+          ADD_NAME: ${{ inputs.add_name }}
+          ADD_URL: ${{ inputs.add_url }}
+        run: python kakao.py auth-code "$ADD_URL" --name "$ADD_NAME"
 
       - name: Build report
         run: python nfl_digest.py --build-only ${{ inputs.force && '--force' || '' }}
