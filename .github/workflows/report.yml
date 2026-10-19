@@ -1,0 +1,90 @@
+name: NFL report
+
+on:
+  schedule:
+    - cron: "0 23 * * *"  # 매일 08:00 KST
+    - cron: "30 4 * * *"  # 매일 13:30 KST
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "새 소식이 없어도 카톡 전송"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write  # state 브랜치에 상태 저장
+  pages: write
+  id-token: write
+
+concurrency:
+  group: nfl-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      STATE_FILE: ${{ github.workspace }}/.state/state.json
+      SITE_DIR: ${{ github.workspace }}/site
+      KAKAO_TOKEN_FILE: /tmp/kakao_tokens.json
+      SUMMARIZER: api
+      API_MODEL: claude-haiku-5-5
+      PAGE_URL: https://togaeby-sys.github.io/nfl-daily-report
+      FAVORITE_TEAM: kc
+      KAKAO_REST_API_KEY: ${{ secrets.KAKAO_REST_API_KEY }}
+      KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: state
+          path: .state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q -r requirements.txt
+
+      # 카카오 토큰은 갱신될 수 있어 state 브랜치에 암호화해 보관한다 (최초 1회만 secrets 에서 가져옴)
+      - name: Restore Kakao tokens
+        env:
+          KEY: ${{ secrets.KAKAO_STATE_KEY }}
+          BOOT: ${{ secrets.KAKAO_TOKENS_JSON }}
+        run: |
+          umask 077
+          if [ -f .state/kakao_tokens.enc ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -pass env:KEY -in .state/kakao_tokens.enc -out "$KAKAO_TOKEN_FILE"
+          else
+            printf '%s' "$BOOT" > "$KAKAO_TOKEN_FILE"
+          fi
+
+      - name: Build report
+        run: python nfl_digest.py --build-only ${{ inputs.force && '--force' || '' }}
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Send KakaoTalk
+        run: python nfl_digest.py --send-pending
+
+      - name: Save state
+        if: always()
+        env:
+          KEY: ${{ secrets.KAKAO_STATE_KEY }}
+        run: |
+          if [ -s "$KAKAO_TOKEN_FILE" ]; then
+            openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -pass env:KEY -in "$KAKAO_TOKEN_FILE" -out .state/kakao_tokens.enc
+          fi
+          cd .state
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -q -m "state $(TZ=Asia/Seoul date +%Y%m%d%H%M)"
+          git push -q origin HEAD:state

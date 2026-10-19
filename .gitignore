@@ -1,0 +1,12 @@
+# 비밀값·로컬 상태 (절대 커밋 금지)
+.env
+.kakao_tokens.json
+*.enc
+state.json
+pending.json
+.state/
+# 생성물·로컬 전용
+site/
+digest.log
+__pycache__/
+com.sportsnews.nfl-digest.plist
